@@ -14,18 +14,10 @@ JsMacros.on('Title', JavaWrapper.methodToJava(event => {
     var archerToggle = ARCHER_TOGGLE_CONFIG.archerToggle === 'true';
 
     let actionBar = event.message.withoutFormatting();
-    if (archerToggle) {
-        if (actionBar.getString().startsWith("L-")) {
-            SpellDetected = true;
-        } else {
-            SpellDetected = false;
-        }
+    if (actionBar.getString().includes("")) {
+        SpellDetected = true;
     } else {
-        if (actionBar.getString().startsWith("R-")) {
-            SpellDetected = true;
-        } else {
-            SpellDetected = false;
-        }
+        SpellDetected = false;
     }
 }));
 
