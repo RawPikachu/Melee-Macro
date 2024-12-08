@@ -10,9 +10,6 @@ var SpellDetected = false;
 
 //Checks if the user started a spell.
 JsMacros.on('Title', JavaWrapper.methodToJava(event => {
-    var ARCHER_TOGGLE_CONFIG = require('./archerToggle.json');
-    var archerToggle = ARCHER_TOGGLE_CONFIG.archerToggle === 'true';
-
     let actionBar = event.message.withoutFormatting();
     if (actionBar.getString().includes("")) {
         SpellDetected = true;
@@ -23,10 +20,11 @@ JsMacros.on('Title', JavaWrapper.methodToJava(event => {
 
 //The Macro itself.
 JsMacros.on('Key', true, JavaWrapper.methodToJava((event, context) => {
-    var ARCHER_TOGGLE_CONFIG = require('./archerToggle.json');
-    var archerToggle = ARCHER_TOGGLE_CONFIG.archerToggle === 'true';
+    var heldItemLore = Player.getPlayer().getMainHand().getLore()
 
-    if (archerToggle) {
+    if (heldItemLore.some(function(str) {
+        return str.getString().includes("Class Req: Archer/Hunter");
+    })) {
         if (event.action === 1 && event.key == "key.mouse.right") {
             var timer = 0;
             mouseDown = true;
@@ -46,7 +44,9 @@ JsMacros.on('Key', true, JavaWrapper.methodToJava((event, context) => {
         } else if (event.action === 0 && event.key == "key.mouse.right") {
             mouseDown = false;
         }
-    } else {
+    } else if (heldItemLore.some(function(str) {
+        return str.getString().includes("Class Req: ");
+    })) {
         if (event.action === 1 && event.key == "key.mouse.left") {
             var timer = 0;
             mouseDown = true;
