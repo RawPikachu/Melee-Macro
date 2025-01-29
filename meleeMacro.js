@@ -1,29 +1,30 @@
 /*
 Wynncraft Melee Macro by WaiZ and Rikko (https://github.com/richard-marc)
 https://github.com/CoolBvll/Melee-Macro
+
+Updated to 2.1 + class detection by RawPikachu
+https://github.com/RawPikachu/Melee-Macro
 */
 
-// lll                  llr                 lrr                 lrl
-// |    ,    ,    |    ,    ,    |    ,    ,    |    ,    ,    |
+// lll                          llr                       lrr                   lrl
+// |󏿠    󏿠,󏿠    󏿠,󏿠    󏿠|󏿠    󏿠,󏿠    󏿠,󏿠    󏿠|󏿠    󏿠,󏿠    󏿠,󏿠    󏿠|󏿠    󏿠,󏿠    󏿠,󏿠    󏿠|
 
-// rrr                rrl                 rll                 rlr
-// |󏿠    ,󏿠    ,󏿠    |󏿠    ,󏿠    ,󏿠    |󏿠    ,󏿠    ,󏿠    |󏿠    ,󏿠    ,󏿠    |
+// rrr                    rrl                    rll                     rlr
+// |󏿠    󏿠,󏿠    󏿠,󏿠    󏿠|󏿠    󏿠,󏿠    󏿠,󏿠    󏿠|󏿠    󏿠,󏿠    󏿠,󏿠    󏿠|󏿠    󏿠,󏿠    󏿠,󏿠    󏿠|
 
 if (!World.isWorldLoaded()) JsMacros.waitForEvent('ChunkLoad');
 
 var mouseDown = false;
 var SpellDetected = false;
 
-// Checks if the user started a spell. (Doesn't work properly if spell cast overlay is enabled on wynntils)
-// Still needs fixing, doesn't block for casts in quick succession.
+// Checks if the user started a spell.
 JsMacros.on('Title', JavaWrapper.methodToJava(event => {
     let actionBar = event.message.withoutFormatting();
     let text = actionBar.getString()
-    let heldItemName = Player.getPlayer().getMainHand().getName().getString()
 
-    if (heldItemName.includes("spell cast!")) {
+    if (text.includes("󏿠    󏿠") || text.includes("󏿠    󏿠") || text.includes("󏿠    󏿠") || text.includes("󏿠    󏿠") || text.includes("󏿠    󏿠") || text.includes("󏿠    󏿠") || text.includes("󏿠    󏿠") || text.includes("󏿠    󏿠")) {
         SpellDetected = false;
-    } else if (text.includes("") || text.includes("󏿠")) {
+    } else if (text.includes("󏿠")) {
         SpellDetected = true;
     } else {
         SpellDetected = false;
