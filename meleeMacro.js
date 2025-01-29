@@ -72,7 +72,7 @@ JsMacros.on('Key', true, JavaWrapper.methodToJava((event, context) => {
                     Time.sleep(1);
                 } else {
                     Player.getPlayer().attack();
-                    Time.sleep(100);
+                    Time.sleep(50);
                 }
             } while (mouseDown);
 
